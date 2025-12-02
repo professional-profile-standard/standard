@@ -2,10 +2,12 @@ from pydantic import BaseModel, Field
 
 class Location(BaseModel):
     country: str
-    state: str
+    state: str | None = None
     city: str | None = None
+    village: str | None = None
+    street: str | None = None
     postal_code: int | None = None
-    address_line: str | list[str] | None = None
+    address: str | list[str] | None = None
 
 class Contact(BaseModel):
     country_code: str
@@ -13,10 +15,6 @@ class Contact(BaseModel):
     phone_type: str | None = None
     email: str
     website: str
-
-class ProfessionalSummary(BaseModel):
-    title: str
-    summary: str
 
 class PersonalDetails(BaseModel):
     first_name: str
@@ -27,6 +25,10 @@ class PersonalDetails(BaseModel):
     location: str | Location
     gender: str
     race: str
+
+class ProfessionalSummary(BaseModel):
+    title: str
+    summary: str
 
 class Education(BaseModel):
     name: str
