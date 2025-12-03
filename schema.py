@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl, EmailStr
 
 
 class Location(BaseModel):
@@ -16,16 +16,16 @@ class Contact(BaseModel):
     country_code: str | None = None
     phone_number: int | None = None
     phone_type: str | None = None
-    email: str | None = None
+    email: EmailStr | None = None
     website: str | None = None
 
 
 class PersonalDetails(BaseModel):
     first_name: str
+    preferred_first_name: str | None = None
     middle_name: str | None = None
     last_name: str | None = None
     profile_pic: HttpUrl | None = None
-    preferred_first_name: str | None = None
     contact: Contact | None = None
     location: str | Location | None = None
     gender: str | None = None
@@ -51,8 +51,8 @@ class Education(BaseModel):
 
 
 class Link(BaseModel):
-    name: str
-    url: str
+    url: HttpUrl
+    name: str | None = None
     url_text: str | None = None
 
 
@@ -112,7 +112,7 @@ class Profile(BaseModel):
     misc: Misc | None = None
 
 
-class Resume(BaseModel):
+class PPS(BaseModel):
     personal_details: PersonalDetails
     educations: list[Education] = []
     links: list[Link] | []
