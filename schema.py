@@ -40,14 +40,16 @@ class ProfessionalSummary(BaseModel):
 class Education(BaseModel):
     institute_name: str
     degree_name: str
-    field_of_study: str | None = None
-    sub_field: str | None = None
+    logo: HttpUrl | None = None
+    field: str | None = None # cse, ee etc
+    subfield: str | None = None
+    specialization: str | None = None
     cgpa: str | None = None
-    achievements: list[str] = []
     location: str | Location | None = None
     duration: str | None = None
     start_date: date | None = None
     end_date: date | None = None
+    achievements: list[str] = []
 
 
 class Link(BaseModel):
@@ -64,8 +66,8 @@ class Experience(BaseModel):
     logo: HttpUrl | None = None
     is_current: bool | None = None
     duration: str | None = None
-    start_date: str | None = None
-    end_date: str | None = None
+    start_date: date | None = None
+    end_date: date | None = None
     experience_type: str | None = None # internship, full-time etc
     contributions: list[str] = []
     achievements: list[str] = []
@@ -79,8 +81,8 @@ class Project(BaseModel):
     type: str | None = None # personal, academic, open-source etc
     links: list[str | Link] = []
     techstack: list[str] = []
-    start_date: str | None = None
-    end_date: str | None = None
+    start_date: date | None = None
+    end_date: date | None = None
     status: str | None = None # completed, archived etc
     tags: list[str] = []
     details: list[str] = []
@@ -105,8 +107,8 @@ class Misc(BaseModel):
 
 class Profile(BaseModel):
     professional_summary: ProfessionalSummary
-    work_experience: list[Experience] = []
     skills: dict[str, list[str]] = {}
+    experiences: list[Experience] = []
     projects: list[Project] = []
     certificates: list[Certificate] = []
     misc: Misc | None = None
@@ -115,6 +117,7 @@ class Profile(BaseModel):
 class PPS(BaseModel):
     personal_details: PersonalDetails
     educations: list[Education] = []
-    links: list[Link] | []
-    profiles: dict[str, Profile] = []
+    links: list[Link]= []
+    certificates: list[Certificate] = []
+    profiles: dict[str, Profile] = {}
     misc: Misc | None = None
